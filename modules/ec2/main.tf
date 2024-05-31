@@ -2,7 +2,7 @@
 # with our own assigned key for SSH access. These belong to the public network and share the same 
 # bootstrap script.
 resource "aws_instance" "public_instance" {
-  for_each               = var.instance_name
+  for_each               = toset(var.instance_name)
   ami                    = var.ec2_specs.ami
   instance_type          = var.ec2_specs.instance_type
   subnet_id              = var.public_subnet_id

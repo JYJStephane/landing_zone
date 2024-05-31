@@ -112,3 +112,9 @@ resource "local_file" "privatekey" {
   content = module.key_pair.key_pair_pem_private
   filename = "./pem/SSHP-Virginia.pem"
 }
+
+# module "vpn" {
+#   source = "./modules/vpn"
+#   vpc_id = module.network2.vpc_id
+#   vpc_route_table = module.network2.public_route_table_id
+# }
