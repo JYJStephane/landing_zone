@@ -16,23 +16,9 @@ resource "aws_subnet" "public" {
   }
 }
 
-# Creation of the Internet Gateway in the specified VPC with randomly generated suffix
-# resource "aws_internet_gateway" "ig_virginia" {
-#   vpc_id = aws_vpc.vpc_virginia.id
-#   tags = {
-#     "Name" = "Internet Gateway 2"
-#   }
-# }
-
-
 # Creation of a public route table in a specific VPC. The route table includes a route that sends all traffic through an Internet Gateway (IGW).
 resource "aws_route_table" "public" {
   vpc_id = aws_vpc.vpc_virginia.id
-
-  route {
-    cidr_block = var.cidr_map["any"]
-    vpc_peering_connection_id = var.peering_id
-  }
 
   tags = {
     "Name" = "Private Route Table 2"
