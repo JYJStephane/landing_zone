@@ -14,14 +14,16 @@ module "myinstances" {
   ec2_specs         = var.ec2_specs
   public_subnet_id  = module.network.public_subnet_id
   private_subnet_id = module.network.private_subnet_id
-  key_name          = data.aws_key_pair.key.key_name
+  key_name          = var.key_name
   key_private_name  = var.key_private_name
   public_sg_id      = module.network.public_security_group_id
   private_sg_id     = module.network.private_security_group_id
   enable_monitoring = var.enable_monitoring
   suffix            = local.suffix
-  key_pair_pem      = module.key_pair.key_pair_pem
+  key_pair_pem_public      = module.key_pair.key_pair_pem_public
+  key_pair_pem_private = module.key_pair.key_pair_pem_private
   depends_on        = [module.key_pair]
+  
 }
 
 # This module various parameters to the module, including cidr_map for IP addresses,
@@ -41,7 +43,7 @@ module "network2" {
   cidr_map   = var.cidr_map
   suffix     = local.suffix
   ports      = var.ports
-  key_name = data.aws_key_pair.key.key_name
+  key_name = var.key_name
   ec2_specs         = var.ec2_specs
   peering_id = module.vpc_peering.peering_id
 }
@@ -57,13 +59,13 @@ module "iam_users" {
   source     = "./modules/iam_users"
   iam_users  = var.iam_users
   iam_groups = var.iam_groups
-  depends_on = [ module.iam_groups ]
+  depends_on = [module.iam_groups]
 }
 
 # Module for setting up a budget with a $X.XX spending threshold, running from a date to another one. Notifications will be sent to email explicit.
 module "zero_spend_budget" {
-  source        = "./modules/budgets"
-  budget_config = var.budget_config
+  source  = "./modules/budgets"
+  budgets = var.budgets
 }
 
 # Module to store vpc logs in an S3 bucket
@@ -80,13 +82,14 @@ module "key_pair" {
   algorithm_key_pair = var.algorithm_key_pair
   rsa_bits_key_pair  = var.rsa_bits_key_pair
   key_name_private   = var.key_private_name
+  key_name = var.key_name
 }
 
 module "policy" {
-  source = "./modules/policy"
-  s3_bucket_arn = module.mybucket.s3_bucket_arn
-  iam_group = var.iam_groups
-  depends_on = [ module.iam_groups ]
+  source         = "./modules/policy"
+  s3_bucket_arn  = module.mybucket.s3_bucket_arn
+  iam_group      = var.iam_groups
+  depends_on     = [module.iam_groups]
   jumpserver_arn = module.myinstances.public_instance_arn["jumpserver"]
 }
 
@@ -100,3 +103,12 @@ module "vpc_peering" {
   vpc2_cidr = var.cidr_map["virginia2"]
 }
 
+resource "local_file" "publickey" {
+  content = module.key_pair.key_pair_pem_private
+  filename = "./pem/SSH-Virginia.pem"
+}
+
+resource "local_file" "privatekey" {
+  content = module.key_pair.key_pair_pem_private
+  filename = "./pem/SSHP-Virginia.pem"
+}
