@@ -1,0 +1,48 @@
+Well during this time in the landing zone project, I have been focused on creating a secure environment 
+for workloads in new projects. We have started by creating a VPC with two subnets, one public and one private as a start. 
+Then, as we have learned through trial and error, we implement user groups with the minimum permissions necessary to 
+access resources and denying access to other resources. We also created different resources for the networks such as 
+nat gateway to allow the connection of private instances to the internet and the creation of buckets to store VPC logs 
+and be able to control all traffic. Now we are trying to connect two VPCs simulating a VPN connection and as we always 
+have problems due to duplicating resources when deploying, we have chosen to use Terraform Cloud, which is similar to 
+AzureDevOps, which allows us to deploy infrastructure without interrupting the work of another colleague. . And that's 
+all so far, every day we learn something new and we try to implement it in our project.
+
+Bueno durante este tiempo en el proyecto de landing zone, me e centrado en la creación de un entorno seguro para cargas 
+de trabajo en nuevos proyectos. Hemos empezado por crear una VPC con dos subnets una publica y otra privada como comienzo. 
+Luego a medida que hemos aprendido a base de prueba y error implementamos grupos de usuarios con los minimos permisos necesarios 
+para acceder a los recursos y denegando acceso a otros recursos. También creamos diferentes recuros para las redes como nat gateway 
+para permitir la conexión de las instancias privadas a internet y la creación de buckets para almacenar logs de la VPC y poder tener 
+todo el trafico controlado. Ahora estamos probando a conectar dos VPC simulando una conexión por VPN y como siempre tenemos problemas 
+por duplicar recursos a la hora de desplegar hemos optado por utilizar Terraform Cloud que es similar a AzureDevOps lo cual nos permite 
+poder desplegar infraestructura sin interrumpir el trabajo de otro compañero. Y eso es todo hasta el momento, cada día aprendemos algo 
+nuevo e intentamos implementarlo en nuestro proyecto.
+
+DESTACAR
+Lo que destacaría es la forma en como pasamos de desplegar infraestructuras en fisico a hacerlo de forma remota utilizando código y la capacidad que esto da para hacerlo de 
+una forma mucho más rápida y cómoda. Tambíen esto permite el poder realizar pruebas y crear presupuestos mucho más precisos y exactos.
+
+What I would highlight is the way in which we went from deploying infrastructures physically to doing so remotely using code and the ability this gives to do it in a much faster 
+and more comfortable way. This also allows us to perform tests and create much more precise and exact budgets.
+
+VENTAJAS
+Los problemas con los que me e encontrado son básicamente falta de conocimiento a la hora de utilizar terraform, paso de estar acostumbrado a otros lenguajes de programación que 
+no tienen nada que ver con terraform y el proceso de adaptación a otro lenguaje totalmente diferente al principio es dificil pero como todo a medida que pasa el tiempo y practicas acabas controlandolo.
+
+The problems that I have encountered are basically a lack of knowledge when using terraform, I am accustomed to other programming languages ​​that have nothing to do with terraform 
+and the process of adapting to another totally different language at first is Difficult but like everything, as time goes by and you practice, you end up controlling it.
+
+COMO TE SIENTES
+Es la primera vez que trabajo en equipo y me e sentido mui cómodo. Tener compañeros trabajando en lo mismo ayuda a la hora de encontrarte con problemas que no entiendes y siempre 
+puedes pedirles ayuda y consejo.
+
+It is the first time I have worked as a team and I have felt very comfortable. Having colleagues working on the same thing helps when you encounter problems that you don't understand 
+and you can always ask them for help and advice.
+
+FALLOS
+El mayor problema es intentar conectar utilizar los recursos en terraform cuando la documentación no llega a ser mui buena en las paginas oficiales y tienes que pelearte constantemente 
+con fallos.
+Pero al final a base de intentarlo y comprender los errores acabas por comprender el por que de los fallos y como funciona.
+
+The biggest problem is trying to connect and use the resources in Terraform when the documentation is not very good on the official pages and you have to constantly deal with bugs.
+But in the end, by trying and understanding the errors, you end up understanding why the errors occur and how it works.

@@ -55,7 +55,7 @@ resource "aws_route_table" "public" {
   }
 
   tags = {
-    "Name" = "private_rt-${var.suffix}"
+    "Name" = "public_rt-${var.suffix}"
   }
 }
 
@@ -69,7 +69,7 @@ resource "aws_route_table" "private" {
   }
 
   tags = {
-    "Name" = "public_rt-${var.suffix}"
+    "Name" = "private_rt-${var.suffix}"
   }
 }
 

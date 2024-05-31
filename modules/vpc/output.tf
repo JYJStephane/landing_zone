@@ -10,9 +10,9 @@ output "private_subnet_id" {
   value = aws_subnet.private.id
 }
 
-output "internet_gateway_id" {
-  value = aws_internet_gateway.ig_virginia.id
-}
+# output "internet_gateway_id" {
+#   value = aws_internet_gateway.ig_virginia.id
+# }
 
 output "public_route_table_id" {
   value = aws_route_table.public.id

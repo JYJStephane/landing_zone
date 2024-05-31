@@ -10,7 +10,6 @@ module "mybucket" {
 # Creation of a number of instances defined in tfvars based on the quantity of names entered
 module "myinstances" {
   source = "./modules/ec2"
-
   instance_name     = var.instance_name
   ec2_specs         = var.ec2_specs
   public_subnet_id  = module.network.public_subnet_id
@@ -34,6 +33,17 @@ module "network" {
   suffix     = local.suffix
   ports      = var.ports
   private_ip = "${module.myinstances.private_ip["jumpserver"]}/32"
+  peering_id = module.vpc_peering.peering_id
+}
+
+module "network2" {
+  source     = "./modules/vpc_pruebas"
+  cidr_map   = var.cidr_map
+  suffix     = local.suffix
+  ports      = var.ports
+  key_name = data.aws_key_pair.key.key_name
+  ec2_specs         = var.ec2_specs
+  peering_id = module.vpc_peering.peering_id
 }
 
 #Module for managing IAM groups.
@@ -78,5 +88,15 @@ module "policy" {
   iam_group = var.iam_groups
   depends_on = [ module.iam_groups ]
   jumpserver_arn = module.myinstances.public_instance_arn["jumpserver"]
+}
+
+module "vpc_peering" {
+  source = "./modules/vpc_peering"
+  vpc1_id = module.network.vpc_id
+  vpc1_route_table = module.network.public_route_table_id
+  vpc1_cidr = var.cidr_map["virginia"]
+  vpc2_id = module.network2.vpc_id
+  vpc2_route_table = module.network2.public_route_table_id
+  vpc2_cidr = var.cidr_map["virginia2"]
 }
 

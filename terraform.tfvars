@@ -4,9 +4,11 @@ region = {
 
 cidr_map = {
   any      = "0.0.0.0/0"
-  virginia = "10.10.0.0/16"
-  public   = "10.10.0.0/24"
-  private  = "10.10.1.0/24"
+  virginia = "10.0.0.0/16"
+  virginia2 = "20.0.0.0/16"
+  public   = "10.0.1.0/24"
+  public2   = "20.0.1.0/24"
+  private  = "10.0.2.0/24"
 }
 
 ports = {

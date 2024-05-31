@@ -16,9 +16,17 @@ variable "ports" {
   }))
 }
 
-variable "private_ip" {
-  description = "Private IP of jumpserver"
-  type = string
+variable "key_name" {
+  description = "Key pair name to access public instances"
+  type        = string
+}
+
+variable "ec2_specs" {
+  description = "EC2 specifications including AMI and instance type"
+  type = object({
+    ami            = string
+    instance_type  = string
+  })
 }
 
 variable "peering_id" {
