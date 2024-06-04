@@ -10,8 +10,16 @@ variable "cidr_map" {
 
 variable "ports" {
   type = map(object({
-    port     = number
-    protocol = string
+    ingress = map(object({
+      from_port = number
+      to_port   = number
+      protocol  = string
+    }))
+    egress = object({
+      from_port = number
+      to_port   = number
+      protocol  = string
+    })
   }))
   description = "Ports & Protocols"
 }
@@ -23,17 +31,11 @@ variable "tags" {
 
 variable "ec2_specs" {
   description = "Parameters of the instance"
-  type        = map(string)
-}
-
-variable "instance_name" {
-  description = "Name of the instances"
-  type        = set(string)
-}
-
-variable "enable_monitoring" {
-  description = "Enables the deployment of monitoring"
-  type        = bool
+  type = object({
+    ami       = string
+    type      = string
+    instances = map(string)
+  })
 }
 
 variable "iam_users" {
@@ -43,23 +45,7 @@ variable "iam_users" {
 
 variable "iam_groups" {
   description = "Mapa de los grupos"
-  type = list(string)
-}
-
-variable "algorithm_key_pair" {
-  description = "Algorithm with which the key is encrypted"
-  type        = string
-  sensitive   = true
-}
-
-variable "rsa_bits_key_pair" {
-  description = "Key length"
-  type        = number
-}
-
-variable "key_private_name" {
-  description = "Name Key Pair"
-  type        = string
+  type        = list(string)
 }
 
 variable "bucket_config" {
@@ -67,9 +53,17 @@ variable "bucket_config" {
   type        = map(number)
 }
 
-variable "budget_config" {
-  description = "Configuration values of the budget"
-  type = object({
+# variable "access_key" {
+#   description = "Access key for Terraform Cloud"
+# }
+
+# variable "secret_key" {
+#   description = "Secret key for Terraform Cloud"
+# }
+
+variable "budgets" {
+  description = "List of budgets and their configurations"
+  type = list(object({
     budget_name              = string
     budget_limit_amount      = string
     budget_time_period_start = string
@@ -81,13 +75,14 @@ variable "budget_config" {
       threshold_type                    = string
       budget_subscriber_email_addresses = list(string)
     }))
+  }))
+}
+
+variable "keys" {
+  description = "Valores para configurar nuestra generación de keys"
+  type = object({
+    algorithm = string
+    rsa_bits  = number
+    key_name  = map(string)
   })
-}
-
-variable "access_key" {
-  description = "Access key for Terraform Cloud"
-}
-
-variable "secret_key" {
-  description = "Secret key for Terraform Cloud"
 }
