@@ -18,75 +18,28 @@ cidr_map = {
 ports = {
   public = {
     ingress = {
-      icmp = {
-        from_port = -1
-        to_port   = -1
-        protocol  = "icmp"
-      }
-      ssh = {
-        from_port = 22
-        to_port   = 22
-        protocol  = "tcp"
-      }
-      http = {
-        from_port = 80
-        to_port   = 80
-        protocol  = "tcp"
-      }
-      https = {
-        from_port = 443
-        to_port   = 443
-        protocol  = "tcp"
-      }
-      openvpn = {
-        from_port = 1194
-        to_port   = 1194
-        protocol  = "udp"
-      }
+      icmp    = { from_port = -1, to_port = -1, protocol = "icmp" }
+      ssh     = { from_port = 22, to_port = 22, protocol = "tcp" }
+      http    = { from_port = 80, to_port = 80, protocol = "tcp" }
+      https   = { from_port = 443, to_port = 443, protocol = "tcp" }
+      openvpn = { from_port = 1194, to_port = 1194, protocol = "udp" }
     }
-    egress = {
-      from_port = 0
-      to_port   = 0
-      protocol  = "-1"
-    }
+    egress = { from_port = 0, to_port = 0, protocol = "-1" }
   }
   private = {
     ingress = {
-      ssh = {
-        from_port = 22,
-        to_port   = 22,
-        protocol  = "tcp"
-      }
+      ssh     = { from_port = 22, to_port = 22, protocol = "tcp" },
+      openvpn = { from_port = 1194, to_port = 1194, protocol = "udp" }
     }
-    egress = {
-      from_port = 0,
-      to_port   = 0,
-      protocol  = "-1"
-    }
+    egress = { from_port = 0, to_port = 0, protocol = "-1" }
   }
   vpn = {
     ingress = {
-      all = {
-        from_port = 0,
-        to_port   = 65535,
-        protocol  = "tcp"
-      },
-      icmp = {
-        from_port = -1,
-        to_port   = -1,
-        protocol  = "icmp"
-      }
-      openvpn = {
-        from_port = 1194
-        to_port   = 1194
-        protocol  = "udp"
-      }
+      all     = { from_port = 0, to_port = 65535, protocol = "tcp" },
+      icmp    = { from_port = -1, to_port = -1, protocol = "icmp" }
+      openvpn = { from_port = 1194, to_port = 1194, protocol = "udp" }
     }
-    egress = {
-      from_port = 0,
-      to_port   = 0,
-      protocol  = "-1"
-    }
+    egress = { from_port = 0, to_port = 0, protocol = "-1" }
   }
 }
 
@@ -118,10 +71,10 @@ ec2_specs = {
 
 # Users membership associations to groups
 iam_users = {
-  "admin_user"       = ["aws_admin"]
-  "billing_user"     = ["aws_billing"]
-  "security_user"    = ["aws_security"]
-  "operations_user"  = ["aws_operations"]
+  "admin_user"      = ["aws_admin"]
+  "billing_user"    = ["aws_billing"]
+  "security_user"   = ["aws_security"]
+  "operations_user" = ["aws_operations"]
 }
 
 # List of Groups added to our configuration

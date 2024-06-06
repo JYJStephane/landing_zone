@@ -39,7 +39,6 @@ module "security_groups" {
   ports      = var.ports
   vpc_ids    = module.network.vpc_ids
   cidr_map   = var.cidr_map
-  private_ip = module.network.subnet_ids["public"]
 }
 
 ###############---- MODULE EC2 ----###############

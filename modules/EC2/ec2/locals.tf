@@ -31,6 +31,9 @@ locals {
   apt install firewalld -y
   firewall-cmd --zone=public --change-interface=eth0 --permanent
   firewall-cmd --zone=public --add-port=3306/tcp --permanent
+  firewall-cmd --zone=public --add-port=1194/udp --permanent
+  firewall-cmd --zone=public --add-port=22/udp --permanent
+  firewall-cmd --zone=public --add-port=22/tcp --permanent
   firewall-cmd --reload
   EOF
     monitoring = <<-EOF
@@ -45,6 +48,7 @@ locals {
   apt install firewalld -y
   firewall-cmd --zone=private --change-interface=eth0 --permanent
   firewall-cmd --zone=public --add-service=ssh --permanent
+  firewall-cmd --zone=public --add-service=openvpn --permanent
   firewall-cmd --reloads
   EOF
     jumpserver = <<-EOF
@@ -74,6 +78,9 @@ locals {
   firewall-cmd --zone=public --change-interface=eth0 --permanent
   firewall-cmd --zone=public --add-service=ssh --permanent
   firewall-cmd --zone=public --add-service=openvpn --permanent
+  firewall-cmd --zone=public --add-port=1194/udp --permanent
+  firewall-cmd --zone=public --add-port=22/udp --permanent
+  firewall-cmd --zone=public --add-port=22/tcp --permanent
   firewall-cmd --reload
 
   # Import of the client configuration file from the VPN server

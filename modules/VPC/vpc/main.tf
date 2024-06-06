@@ -93,7 +93,7 @@ resource "aws_route_table" "vpn" {
   }
 
   tags = {
-    "Name" = "Priv-RT-VPN"
+    "Name" = "RT-VPN"
   }
 }
 
@@ -107,3 +107,4 @@ resource "aws_route_table_association" "routes_assoc" {
   subnet_id      = aws_subnet.subnets[each.key].id
   route_table_id = each.value.id
 }
+
