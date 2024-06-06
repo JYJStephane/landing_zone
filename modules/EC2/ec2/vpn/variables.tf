@@ -36,8 +36,3 @@ variable "key_pair_pem" {
     public_key_pem     = string
   }))
 }
-
-variable "vpn_ip" {
-  description = "IP of the VPN Server"
-  type = string
-}

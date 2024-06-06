@@ -4,6 +4,7 @@ variable "cidr_map" {
 }
 
 variable "ports" {
+  description = "Ports & Protocols"
   type = map(object({
     ingress = map(object({
       from_port = number
@@ -16,16 +17,11 @@ variable "ports" {
       protocol  = string
     })
   }))
-  description = "Ports & Protocols"
+  
 }
 
 
 variable "vpc_ids" {
   description = "ID VPC Virginia"
   type        = map(string)
-}
-
-variable "private_ip" {
-  description = "Private IP of jumpserver"
-  type        = string
 }
