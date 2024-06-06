@@ -20,7 +20,7 @@ module "policy" {
   source         = "./modules/IAM/policy"
   s3_bucket_arn  = module.mybucket.s3_bucket_arn
   iam_group      = var.iam_groups
-  jumpserver_arn = module.myinstances.instance_arns["jumpserver"]
+  monitoring_arn = module.myinstances.instance_arns["monitoring"]
   depends_on = [ module.iam_groups ]
 }
 

@@ -1,9 +1,6 @@
 output "vpc_ids" {
   description = "Map of subnet ids with names"
-  value = {
-    virginia = aws_vpc.virginia.id
-    vpn      = aws_vpc.vpn.id
-  }
+  value = {for key, value in aws_vpc.vpcs : key => value.id}
 }
 
 output "subnet_ids" {

@@ -18,10 +18,10 @@ cidr_map = {
 ports = {
   public = {
     ingress = {
-      icmp    = { from_port = -1, to_port = -1, protocol = "icmp" }
-      ssh     = { from_port = 22, to_port = 22, protocol = "tcp" }
-      http    = { from_port = 80, to_port = 80, protocol = "tcp" }
-      https   = { from_port = 443, to_port = 443, protocol = "tcp" }
+      icmp    = { from_port = -1, to_port = -1, protocol = "icmp" },
+      ssh     = { from_port = 22, to_port = 22, protocol = "tcp" },
+      http    = { from_port = 80, to_port = 80, protocol = "tcp" },
+      https   = { from_port = 443, to_port = 443, protocol = "tcp" },
       openvpn = { from_port = 1194, to_port = 1194, protocol = "udp" }
     }
     egress = { from_port = 0, to_port = 0, protocol = "-1" }
@@ -29,6 +29,7 @@ ports = {
   private = {
     ingress = {
       ssh     = { from_port = 22, to_port = 22, protocol = "tcp" },
+      icmp    = { from_port = -1, to_port = -1, protocol = "icmp" },
       openvpn = { from_port = 1194, to_port = 1194, protocol = "udp" }
     }
     egress = { from_port = 0, to_port = 0, protocol = "-1" }
@@ -36,7 +37,7 @@ ports = {
   vpn = {
     ingress = {
       all     = { from_port = 0, to_port = 65535, protocol = "tcp" },
-      icmp    = { from_port = -1, to_port = -1, protocol = "icmp" }
+      icmp    = { from_port = -1, to_port = -1, protocol = "icmp" },
       openvpn = { from_port = 1194, to_port = 1194, protocol = "udp" }
     }
     egress = { from_port = 0, to_port = 0, protocol = "-1" }
@@ -63,7 +64,6 @@ ec2_specs = {
   instances = {
     apache     = "public"
     mysql      = "public"
-    jumpserver = "public"
     monitoring = "private"
     vpn        = "vpn"
   }
@@ -140,8 +140,8 @@ budgets = [
         budget_subscriber_email_addresses = ["another@yopmail.com"]
       }
     ]
-  },
-  {
+  }
+/*   {
     budget_name              = "TheRule"
     budget_limit_amount      = "1000.00"
     budget_time_period_start = "2023-01-01_00:00"
@@ -155,5 +155,5 @@ budgets = [
         budget_subscriber_email_addresses = ["anormadi@yopmail.com"]
       }
     ]
-  }
+  } */
 ]
