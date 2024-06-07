@@ -83,6 +83,18 @@ data "aws_iam_policy_document" "aws_operations" {
   statement {
     effect = "Deny"
     actions = [
+      "ec2:CreateNatGateway",
+      "ec2:DeleteNatGateway",
+      "ec2:ReplaceRoute",
+      "ec2:AssociateVpcCidrBlock",
+      "ec2:DisassociateVpcCidrBlock"
+    ]
+    resources = [
+      "*"]
+  }
+  statement {
+    effect = "Deny"
+    actions = [
       "ec2-instance-connect:SendSSHPublicKey"
     ]
     resources = [

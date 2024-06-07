@@ -96,6 +96,7 @@ iam_users = {
   "billing_user"    = ["aws_billing"]
   "security_user"   = ["aws_security"]
   "operations_user" = ["aws_operations"]
+  "operations_user2" = ["aws_operations"]
 }
 
 # List of Groups added to our configuration
