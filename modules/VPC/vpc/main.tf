@@ -4,6 +4,7 @@ resource "aws_vpc" "vpcs" {
   cidr_block = each.value
   tags = {
     "Name" = each.key
+    "Name" = each.key
   }
 }
 
@@ -48,4 +49,6 @@ resource "aws_route_table_association" "routes_assoc" {
   subnet_id      = aws_subnet.subnets[each.key].id
   route_table_id = aws_route_table.route_tables[each.key].id
 }
+
+
 

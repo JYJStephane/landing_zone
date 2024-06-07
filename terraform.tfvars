@@ -86,6 +86,7 @@ ec2_specs = {
     apache     = "public"
     mysql      = "public"
     monitoring = "monitoring"
+    monitoring = "private"
     vpn        = "vpn"
   }
 }

@@ -31,6 +31,7 @@ locals {
   export ENDPOINT=$(curl http://checkip.amazonaws.com)
   # Set the client name
   export CLIENT=client
+  export CLIENT=client
   # Enable the auto installation
   export AUTO_INSTALL=y
 
@@ -38,6 +39,8 @@ locals {
   ./openvpn-install.sh
 
   # We copy the generated file to an accesible directory, while changing file's ownership
+  cp /root/client.ovpn /home/ubuntu
+  chown ubuntu:ubuntu /home/ubuntu/client.ovpn
   cp /root/client.ovpn /home/ubuntu
   chown ubuntu:ubuntu /home/ubuntu/client.ovpn
   EOF
