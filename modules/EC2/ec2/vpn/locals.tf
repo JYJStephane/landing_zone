@@ -6,21 +6,19 @@ locals {
 
   # Installation of the firewall and application of the rules
   apt install firewalld -y
-  firewall-cmd --zone=public --change-interface=eth0 --permanent
-  firewall-cmd --zone=public --add-service=openvpn --permanent
-  firewall-cmd --zone=public --add-service=ssh --permanent
-  firewall-cmd --zone=public --add-service=icmp --permanent
-  firewall-cmd --zone=public --add-port=1194/udp --permanent
-  firewall-cmd --zone=public --add-port=22/udp --permanent
-  firewall-cmd --zone=public --add-port=22/tcp --permanent
+  firewall-cmd --zone=primary --change-interface=eth0 --permanent
+  firewall-cmd --zone=primary --add-service=openvpn --permanent
+  firewall-cmd --zone=primary --add-service=ssh --permanent
+  firewall-cmd --zone=primary --add-service=icmp --permanent
+  firewall-cmd --zone=primary --add-port=1194/udp --permanent
   firewall-cmd --reload
 
   # Creation of the keys directory
   mkdir /.ssh
 
   # Insertion of the key in the directory, while applying the correct permissions and changing the owner
-  echo "${var.key_pair_pem["monitoring"].private_key_pem}" > /.ssh/${var.keys.key_name["monitoring"]}.pem
-  chmod 400 /.ssh/${var.keys.key_name["monitoring"]}.pem
+  echo "${var.key_pair_pem["secondary"].private_key_pem}" > /.ssh/${var.keys.key_name["secondary"]}.pem
+  chmod 400 /.ssh/${var.keys.key_name["secondary"]}.pem
   chown -R ubuntu /.ssh
   
   # We import an OpenVPN installer and apply execution permission

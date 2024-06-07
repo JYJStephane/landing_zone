@@ -15,23 +15,23 @@ cidr_map = {
 # vpcs variable with its cidr_block
 vpcs = {
   virginia = "10.10.0.0/16"
-  vpn = "10.20.0.0/16"
+  vpn      = "10.20.0.0/16"
 }
 
 # subnets variable with their cidr_block and the vpc to which they belong
 subnets = {
-  public = {
-      vpc  = "virginia"
-      cidr = "10.10.1.0/24"
-    }
-    monitoring = {
-      vpc  = "virginia"
-      cidr = "10.10.2.0/24"
-    }
-    vpn = {
-      vpc  = "vpn"
-      cidr = "10.20.1.0/24"
-    }
+  primary = {
+    vpc  = "virginia"
+    cidr = "10.10.1.0/24"
+  }
+  secondary = {
+    vpc  = "virginia"
+    cidr = "10.10.2.0/24"
+  }
+  vpn = {
+    vpc  = "vpn"
+    cidr = "10.20.1.0/24"
+  }
 }
 
 
@@ -39,7 +39,7 @@ subnets = {
 # within the types we have another map for ingress and egress to be able to access 
 # dynamically when creating the security groups
 ports = {
-  public = {
+  primary = {
     ingress = {
       icmp    = { from_port = -1, to_port = -1, protocol = "icmp" },
       ssh     = { from_port = 22, to_port = 22, protocol = "tcp" },
@@ -49,7 +49,7 @@ ports = {
     }
     egress = { from_port = 0, to_port = 0, protocol = "-1" }
   }
-  monitoring = {
+  secondary = {
     ingress = {
       ssh     = { from_port = 22, to_port = 22, protocol = "tcp" },
       icmp    = { from_port = -1, to_port = -1, protocol = "icmp" },
@@ -85,19 +85,19 @@ ec2_specs = {
   ami  = "ami-0e001c9271cf7f3b9"
   type = "t2.micro"
   instances = {
-    apache     = "public"
-    mysql      = "public"
-    monitoring = "monitoring"
+    apache     = "primary"
+    mysql      = "primary"
+    monitoring = "secondary"
     vpn        = "vpn"
   }
 }
 
 # Users membership associations to groups
 iam_users = {
-  "admin_user"      = ["aws_admin"]
-  "billing_user"    = ["aws_billing"]
-  "security_user"   = ["aws_security"]
-  "operations_user" = ["aws_operations"]
+  "admin_user"       = ["aws_admin"]
+  "billing_user"     = ["aws_billing"]
+  "security_user"    = ["aws_security"]
+  "operations_user"  = ["aws_operations"]
   "operations_user2" = ["aws_operations"]
 }
 
@@ -114,9 +114,9 @@ keys = {
   algorithm = "RSA"
   rsa_bits  = 4096
   key_name = {
-    public  = "SSH-Virginia-Public"
-    monitoring = "SSH-Virginia-Monitoring"
-    vpn     = "SSH-Virginia-VPN"
+    primary   = "SSH-Virginia-Primary"
+    secondary = "SSH-Virginia-Secondary"
+    vpn       = "SSH-Virginia-VPN"
   }
 }
 

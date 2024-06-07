@@ -21,26 +21,26 @@ module "policy" {
   s3_bucket_arn  = module.mybucket.s3_bucket_arn
   iam_group      = var.iam_groups
   monitoring_arn = module.myinstances.instance_arns["monitoring"]
-  depends_on = [ module.iam_groups ]
+  depends_on     = [module.iam_groups]
 }
 
 ###############---- MODULE VPC ----###############
 # This module various parameters to the module, including cidr_map for IP addresses
 # and create the respective subnets to assign our instances
 module "network" {
-  source              = "./modules/VPC/vpc"
-  cidr_map            = var.cidr_map
-  vpcs = var.vpcs
-  subnets = var.subnets
+  source   = "./modules/VPC/vpc"
+  cidr_map = var.cidr_map
+  vpcs     = var.vpcs
+  subnets  = var.subnets
 }
 
 ###############---- MODULE Security Groups ----###############
 # Module to dynamically create security groups based on the ports variable
 module "security_groups" {
-  source     = "./modules/EC2/security_groups"
-  ports      = var.ports
-  vpc_ids    = module.network.vpc_ids
-  cidr_map   = var.cidr_map
+  source   = "./modules/EC2/security_groups"
+  ports    = var.ports
+  vpc_ids  = module.network.vpc_ids
+  cidr_map = var.cidr_map
 }
 
 ###############---- MODULE EC2 ----###############
@@ -54,14 +54,14 @@ module "myinstances" {
   sg_ids       = module.security_groups.sg_ids
   key_pair_pem = module.key_pair.key_pair_pem
   depends_on   = [module.key_pair, module.security_groups, module.vpn]
-  vpn_ip = module.vpn.vpn_ip
+  vpn_ip       = module.vpn.vpn_ip
 }
 
 ###############---- MODULE VPN ----###############
 # Creation of the instance configured with openvpn separately from the others 
 # to first generate its bootstrap so that clients can download it without problem.
 module "vpn" {
-  source = "./modules/EC2/ec2/vpn"
+  source       = "./modules/EC2/ec2/vpn"
   ec2_specs    = var.ec2_specs
   subnet_ids   = module.network.subnet_ids
   keys         = var.keys

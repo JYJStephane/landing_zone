@@ -89,7 +89,7 @@ variable "keys" {
 
 variable "vpcs" {
   description = "VPCs"
-  type = map(string)
+  type        = map(string)
 }
 
 variable "subnets" {
