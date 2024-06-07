@@ -6,6 +6,7 @@ resource "random_string" "sufijo-s3" {
   upper   = false
 }
 
+# Random suffix for the bucket
 locals {
   s3-sufix = "vpc-flow-logs-${random_string.sufijo-s3.id}"
 }

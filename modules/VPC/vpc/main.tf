@@ -8,6 +8,7 @@ resource "aws_vpc" "vpcs" {
   }
 }
 
+# Creation of the subnets in the specified vpc.
 resource "aws_subnet" "subnets" {
   for_each = var.subnets
   vpc_id                = aws_vpc.vpcs[each.value.vpc].id

@@ -9,6 +9,7 @@ variable "cidr_map" {
 }
 
 variable "ports" {
+  description = "Ports & Protocols"
   type = map(object({
     ingress = map(object({
       from_port = number
@@ -21,7 +22,6 @@ variable "ports" {
       protocol  = string
     })
   }))
-  description = "Ports & Protocols"
 }
 
 variable "tags" {
@@ -88,10 +88,12 @@ variable "keys" {
 }
 
 variable "vpcs" {
+  description = "VPCs"
   type = map(string)
 }
 
 variable "subnets" {
+  description = "Subnets"
   type = map(object({
     vpc  = string
     cidr = string

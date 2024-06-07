@@ -1,3 +1,4 @@
+# The Linux commands that are executed in each instance are created once it is created
 locals {
   scripts = {
     apache     = <<-EOF
@@ -74,6 +75,7 @@ locals {
   }
 }
 
+# All instances are filtered so that the VPN instance is not created
 locals {
   filtered_ec2_specs = {
     for key, value in var.ec2_specs["instances"] :

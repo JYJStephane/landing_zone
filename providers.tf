@@ -16,7 +16,9 @@ terraform {
 }
 
 provider "aws" {
+  # region
   region = var.region["virginia"]
+  # Access keys for terraform cloud
   access_key = var.access_key
   secret_key = var.secret_key
   default_tags {

@@ -1,3 +1,4 @@
+# Linux commands for VPN instance
 locals {
   vpn = <<-EOF
   #!/bin/bash

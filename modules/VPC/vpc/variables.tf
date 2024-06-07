@@ -4,10 +4,12 @@ variable "cidr_map" {
 }
 
 variable "vpcs" {
+  description = "Map of vpcs"
   type = map(string)
 }
 
 variable "subnets" {
+  description = "Map for subnets"
   type = map(object({
     vpc  = string
     cidr = string

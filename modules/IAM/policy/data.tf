@@ -1,3 +1,4 @@
+# Policy for the admin group
 data "aws_iam_policy_document" "aws_admin" {
   statement {
     effect = "Allow"
@@ -6,6 +7,7 @@ data "aws_iam_policy_document" "aws_admin" {
   }
 }
 
+# Policy for the security group
 data "aws_iam_policy_document" "aws_security" {
 
   statement {
@@ -64,6 +66,7 @@ data "aws_iam_policy_document" "aws_security" {
   }
 }
 
+# Policy for the operations group
 data "aws_iam_policy_document" "aws_operations" {
   statement {
     effect = "Allow"
@@ -114,6 +117,7 @@ data "aws_iam_policy_document" "aws_operations" {
   }
 }
 
+# Policy for the billing group
 data "aws_iam_policy_document" "aws_billing" {
   statement {
     effect = "Allow"
