@@ -6,11 +6,11 @@ locals {
 
   # Installation of the firewall and application of the rules
   apt install firewalld -y
-  firewall-cmd --zone=primary --change-interface=eth0 --permanent
-  firewall-cmd --zone=primary --add-service=openvpn --permanent
-  firewall-cmd --zone=primary --add-service=ssh --permanent
-  firewall-cmd --zone=primary --add-service=icmp --permanent
-  firewall-cmd --zone=primary --add-port=1194/udp --permanent
+  firewall-cmd --zone=public --change-interface=eth0 --permanent
+  firewall-cmd --zone=public --add-service=openvpn --permanent
+  firewall-cmd --zone=public --add-service=ssh --permanent
+  firewall-cmd --zone=public --add-service=icmp --permanent
+  firewall-cmd --zone=public --add-port=1194/udp --permanent
   firewall-cmd --reload
 
   # Creation of the keys directory

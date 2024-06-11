@@ -13,10 +13,10 @@ locals {
 
   # Installation of the firewall and application of the rules
   apt install firewalld -y
-  firewall-cmd --zone=primary --change-interface=eth0 --permanent
-  firewall-cmd --zone=primary --add-service=ssh --permanent
-  firewall-cmd --zone=primary --add-service=http --permanent
-  firewall-cmd --zone=primary --add-service=https --permanent
+  firewall-cmd --zone=public --change-interface=eth0 --permanent
+  firewall-cmd --zone=public --add-service=ssh --permanent
+  firewall-cmd --zone=public --add-service=http --permanent
+  firewall-cmd --zone=public --add-service=https --permanent
   firewall-cmd --reload
   EOF
     mysql      = <<-EOF
@@ -31,9 +31,9 @@ locals {
   
   # Installation of the firewall and application of the rules
   apt install firewalld -y
-  firewall-cmd --zone=primary --change-interface=eth0 --permanent
-  firewall-cmd --zone=primary --add-port=3306/tcp --permanent
-  firewall-cmd --zone=primary --add-service=ssh --permanent
+  firewall-cmd --zone=public --change-interface=eth0 --permanent
+  firewall-cmd --zone=public --add-port=3306/tcp --permanent
+  firewall-cmd --zone=public --add-service=ssh --permanent
   firewall-cmd --reload
   EOF
     monitoring = <<-EOF
@@ -58,10 +58,10 @@ locals {
   apt install openvpn -y
 
   # Application of the firewall rules
-  firewall-cmd --zone=primary --change-interface=eth0 --permanent
-  firewall-cmd --zone=primary --add-service=ssh --permanent
-  firewall-cmd --zone=primary --add-service=openvpn --permanent
-  firewall-cmd --zone=primary --add-port=1194/udp --permanent
+  firewall-cmd --zone=public --change-interface=eth0 --permanent
+  firewall-cmd --zone=public --add-service=ssh --permanent
+  firewall-cmd --zone=public --add-service=openvpn --permanent
+  firewall-cmd --zone=public --add-port=1194/udp --permanent
   firewall-cmd --reload
 
   # Import of the client configuration file from the VPN server
