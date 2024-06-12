@@ -79,15 +79,15 @@ iam_groups = [
 ]
 
 # Configuration data of the keys generated for our instances and their names
-# keys = {
-#   algorithm = "RSA"
-#   rsa_bits  = 4096
-#   key_name = {
-#     primary   = "SSH-Virginia-Primary"
-#     secondary = "SSH-Virginia-Secondary"
-#     vpn       = "SSH-Virginia-VPN"
-#   }
-# }
+keys = {
+  algorithm = "RSA"
+  rsa_bits  = 4096
+  key_name = {
+    primary   = "SSH-Virginia-Primary"
+    secondary = "SSH-Virginia-Secondary"
+    vpn       = "SSH-Virginia-VPN"
+  }
+}
 
 # Cube lifecycle configuration
 bucket_config = {
