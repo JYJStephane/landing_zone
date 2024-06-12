@@ -5,12 +5,32 @@ vpcs = {
       primary = {
         cidr_block = "10.10.1.0/24"
         public = true
+        instances = {
+          apache = {
+            ami  = "ami-0e001c9271cf7f3b9"
+            type = "t2.micro"
+            ports = {80 = "tcp", 443 = "tcp", 22 = "tcp", -1 = "icmp"}
+          },
+          mysql = {
+            ami  = "ami-0e001c9271cf7f3b9"
+            type = "t2.micro"
+            ports = {80 = "tcp", 443 = "tcp", 22 = "tcp", -1 = "icmp"}
+          }
+        }
       }
       secondary = {
         cidr_block = "10.10.2.0/24"
         public = true
+        instances = {
+          monitoring = {
+            ami  = "ami-0e001c9271cf7f3b9"
+            type = "t2.micro"
+            ports = {22 = "tcp", -1 = "icmp", 1194 = "udp"}
+          }
+        }
       }
     }
+    
   }
   vpn = {
     cidr_block = "10.20.0.0/16"
@@ -18,41 +38,15 @@ vpcs = {
       vpn = {
         cidr_block = "10.20.1.0/24"
         public = true
+        instances = {
+          vpn = {
+            ami  = "ami-0e001c9271cf7f3b9"
+            type = "t2.micro"
+            ports = {80 = "tcp", 443 = "tcp", 22 = "tcp", -1 = "icmp", 1194 = "udp"}
+          }
+        }
       }
     }
-  }
-}
-
-
-# The ports are saved in a variable that is accessed first by the VPN network type and
-# within the types we have another map for ingress and egress to be able to access 
-# dynamically when creating the security groups
-ports = {
-  primary = {
-    ingress = {
-      icmp    = { from_port = -1, to_port = -1, protocol = "icmp" },
-      ssh     = { from_port = 22, to_port = 22, protocol = "tcp" },
-      http    = { from_port = 80, to_port = 80, protocol = "tcp" },
-      https   = { from_port = 443, to_port = 443, protocol = "tcp" },
-      openvpn = { from_port = 1194, to_port = 1194, protocol = "udp" }
-    }
-    egress = { from_port = 0, to_port = 0, protocol = "-1" }
-  }
-  secondary = {
-    ingress = {
-      ssh     = { from_port = 22, to_port = 22, protocol = "tcp" },
-      icmp    = { from_port = -1, to_port = -1, protocol = "icmp" },
-      openvpn = { from_port = 1194, to_port = 1194, protocol = "udp" }
-    }
-    egress = { from_port = 0, to_port = 0, protocol = "-1" }
-  }
-  vpn = {
-    ingress = {
-      all     = { from_port = 0, to_port = 65535, protocol = "tcp" },
-      icmp    = { from_port = -1, to_port = -1, protocol = "icmp" },
-      openvpn = { from_port = 1194, to_port = 1194, protocol = "udp" }
-    }
-    egress = { from_port = 0, to_port = 0, protocol = "-1" }
   }
 }
 
@@ -65,19 +59,6 @@ tags = {
   "IaC_Version" = "1.5.7"
   "project"     = "landing-zone"
   "region"      = "virginia"
-}
-
-# Since the ami and the type are common to all our instances, they 
-# are passed as general data to all of them. In the case of each 
-# instance, the associated subnet is specified to generate them dynamically.
-ec2_specs = {
-  ami  = "ami-0e001c9271cf7f3b9"
-  type = "t2.micro"
-  instances = {
-    apache     = "primary"
-    monitoring = "secondary"
-    vpn        = "vpn"
-  }
 }
 
 # Users membership associations to groups
@@ -98,15 +79,15 @@ iam_groups = [
 ]
 
 # Configuration data of the keys generated for our instances and their names
-keys = {
-  algorithm = "RSA"
-  rsa_bits  = 4096
-  key_name = {
-    primary   = "SSH-Virginia-Primary"
-    secondary = "SSH-Virginia-Secondary"
-    vpn       = "SSH-Virginia-VPN"
-  }
-}
+# keys = {
+#   algorithm = "RSA"
+#   rsa_bits  = 4096
+#   key_name = {
+#     primary   = "SSH-Virginia-Primary"
+#     secondary = "SSH-Virginia-Secondary"
+#     vpn       = "SSH-Virginia-VPN"
+#   }
+# }
 
 # Cube lifecycle configuration
 bucket_config = {

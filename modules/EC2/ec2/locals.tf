@@ -83,3 +83,23 @@ locals {
     if key != "vpn"
   }
 }
+
+locals {
+  # Crear una lista de objetos con nombre de VPC, CIDR, subredes y sus instancias
+  vpc_instances = flatten([
+    for vpc_name, vpc_data in var.vpcs : [
+      for subnet_name, subnet_data in vpc_data.subnets : [
+        for instance_name, instance_data in subnet_data.instances : {
+          vpc_name = vpc_name
+          subnet_name = subnet_name
+          subnet_cidr_block = subnet_data.cidr_block
+          public = subnet_data.public
+          instance_name = instance_name
+          instance_ami = instance_data.ami
+          instance_type = instance_data.type
+          ports = instance_data.ports
+        }if subnet_name != "vpn"
+      ]
+    ]
+  ])
+}

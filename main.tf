@@ -37,11 +37,12 @@ module "security_groups" {
   source   = "./modules/EC2/security_groups"
   ports    = var.ports
   vpc_ids  = module.network.vpc_ids
+  vpcs = var.vpcs
 }
 
-# ###############---- MODULE EC2 ----###############
-# # Creation and assignment to subnets and security groups dynamically based
-# # on the ec2_specs variable in terraform.tfvars.
+###############---- MODULE EC2 ----###############
+# Creation and assignment to subnets and security groups dynamically based
+# on the ec2_specs variable in terraform.tfvars.
 module "myinstances" {
   source       = "./modules/EC2/ec2"
   ec2_specs    = var.ec2_specs
@@ -51,6 +52,7 @@ module "myinstances" {
   key_pair_pem = module.key_pair.key_pair_pem
   depends_on   = [module.key_pair, module.security_groups, module.vpn]
   vpn_ip       = module.vpn.vpn_ip
+  vpcs = var.vpcs
 }
 
 # ###############---- MODULE VPN ----###############
@@ -63,6 +65,7 @@ module "vpn" {
   keys         = var.keys
   sg_ids       = module.security_groups.sg_ids
   key_pair_pem = module.key_pair.key_pair_pem
+  vpcs = var.vpcs
 }
 
 # ###############---- MODULE Key Pair ----###############

@@ -41,3 +41,18 @@ variable "vpn_ip" {
   description = "IP of the VPN Server"
   type = string
 }
+
+variable "vpcs" {
+  type = map(object({
+    cidr_block = string
+    subnets = map(object({
+      cidr_block = string
+      public = bool
+      instances = map(object({
+        ami = string
+        type = string
+        ports = map(string)
+      }))
+    }))
+  }))
+}

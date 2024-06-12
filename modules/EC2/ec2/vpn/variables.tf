@@ -36,3 +36,18 @@ variable "key_pair_pem" {
     public_key_pem     = string
   }))
 }
+
+variable "vpcs" {
+  type = map(object({
+    cidr_block = string
+    subnets = map(object({
+      cidr_block = string
+      public = bool
+      instances = map(object({
+        ami = string
+        type = string
+        ports = map(string)
+      }))
+    }))
+  }))
+}
