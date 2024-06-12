@@ -13,14 +13,14 @@ resource "aws_security_group" "sg" {
       from_port   = ingress.value["from_port"]
       to_port     = ingress.value["to_port"]
       protocol    = ingress.value["protocol"]
-      cidr_blocks = [var.cidr_map["any"]]
+      cidr_blocks = ["0.0.0.0/0"]
     }
   }
   egress {
     from_port   = each.value.egress["from_port"]
     to_port     = each.value.egress["to_port"]
     protocol    = each.value.egress["protocol"]
-    cidr_blocks = [var.cidr_map["any"]]
+    cidr_blocks = ["0.0.0.0/0"]
   }
 
   tags = {

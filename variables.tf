@@ -1,13 +1,3 @@
-variable "region" {
-  description = "Region"
-  type        = map(string)
-}
-
-variable "cidr_map" {
-  description = "CIDR map"
-  type        = map(string)
-}
-
 variable "ports" {
   description = "Ports & Protocols"
   type = map(object({
@@ -88,14 +78,11 @@ variable "keys" {
 }
 
 variable "vpcs" {
-  description = "VPCs"
-  type        = map(string)
-}
-
-variable "subnets" {
-  description = "Subnets"
   type = map(object({
-    vpc  = string
-    cidr = string
+    cidr_block = string
+    subnets = map(object({
+      cidr_block = string
+      public = bool
+    }))
   }))
 }
