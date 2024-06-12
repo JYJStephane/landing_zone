@@ -1,36 +1,25 @@
-region = {
-  "virginia" = "us-east-1"
-}
-
-# all cidr mapped in a variable to assign each one to the desired subnets and vpc
-cidr_map = {
-  any        = "0.0.0.0/0"
-  virginia   = "10.10.0.0/16"
-  vpn        = "10.20.0.0/16"
-  public     = "10.10.1.0/24"
-  private    = "10.10.2.0/24"
-  vpn_subnet = "10.20.1.0/24"
-}
-
-# vpcs variable with its cidr_block
 vpcs = {
-  virginia = "10.10.0.0/16"
-  vpn      = "10.20.0.0/16"
-}
-
-# subnets variable with their cidr_block and the vpc to which they belong
-subnets = {
-  primary = {
-    vpc  = "virginia"
-    cidr = "10.10.1.0/24"
-  }
-  secondary = {
-    vpc  = "virginia"
-    cidr = "10.10.2.0/24"
+  virginia = {
+    cidr_block = "10.10.0.0/16"
+    subnets = {
+      primary = {
+        cidr_block = "10.10.1.0/24"
+        public = true
+      }
+      secondary = {
+        cidr_block = "10.10.2.0/24"
+        public = true
+      }
+    }
   }
   vpn = {
-    vpc  = "vpn"
-    cidr = "10.20.1.0/24"
+    cidr_block = "10.20.0.0/16"
+    subnets = {
+      vpn = {
+        cidr_block = "10.20.1.0/24"
+        public = true
+      }
+    }
   }
 }
 
@@ -86,7 +75,6 @@ ec2_specs = {
   type = "t2.micro"
   instances = {
     apache     = "primary"
-    mysql      = "primary"
     monitoring = "secondary"
     vpn        = "vpn"
   }
