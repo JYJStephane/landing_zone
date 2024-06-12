@@ -1,31 +1,6 @@
-variable "ports" {
-  description = "Ports & Protocols"
-  type = map(object({
-    ingress = map(object({
-      from_port = number
-      to_port   = number
-      protocol  = string
-    }))
-    egress = object({
-      from_port = number
-      to_port   = number
-      protocol  = string
-    })
-  }))
-}
-
 variable "tags" {
   description = "Generally tags"
   type        = map(string)
-}
-
-variable "ec2_specs" {
-  description = "Parameters of the instances"
-  type = object({
-    ami       = string
-    type      = string
-    instances = map(string)
-  })
 }
 
 variable "iam_users" {
@@ -73,7 +48,6 @@ variable "keys" {
   type = object({
     algorithm = string
     rsa_bits  = number
-    key_name  = map(string)
   })
 }
 

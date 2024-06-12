@@ -17,8 +17,8 @@ locals {
   mkdir /.ssh
 
   # Insertion of the key in the directory, while applying the correct permissions and changing the owner
-  echo "${var.key_pair_pem["secondary"].private_key_pem}" > /.ssh/${var.keys.key_name["secondary"]}.pem
-  chmod 400 /.ssh/${var.keys.key_name["secondary"]}.pem
+  echo "${var.key_pair_pem["secondary"].private_key_pem}" > /.ssh/${var.key_pair["secondary"]}.pem
+  chmod 400 /.ssh/${var.key_pair["secondary"]}.pem
   chown -R ubuntu /.ssh
   
   # We import an OpenVPN installer and apply execution permission

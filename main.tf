@@ -27,17 +27,16 @@ module "policy" {
 # This module various parameters to the module, including cidr_map for IP addresses
 # and create the respective subnets to assign our instances
 module "network" {
-  source   = "./modules/VPC/vpc"
-  vpcs = var.vpcs
+  source = "./modules/VPC/vpc"
+  vpcs   = var.vpcs
 }
 
 # ###############---- MODULE Security Groups ----###############
 # # Module to dynamically create security groups based on the ports variable
 module "security_groups" {
-  source   = "./modules/EC2/security_groups"
-  ports    = var.ports
-  vpc_ids  = module.network.vpc_ids
-  vpcs = var.vpcs
+  source  = "./modules/EC2/security_groups"
+  vpc_ids = module.network.vpc_ids
+  vpcs    = var.vpcs
 }
 
 ###############---- MODULE EC2 ----###############
@@ -45,14 +44,14 @@ module "security_groups" {
 # on the ec2_specs variable in terraform.tfvars.
 module "myinstances" {
   source       = "./modules/EC2/ec2"
-  ec2_specs    = var.ec2_specs
   subnet_ids   = module.network.subnet_ids
   keys         = var.keys
   sg_ids       = module.security_groups.sg_ids
   key_pair_pem = module.key_pair.key_pair_pem
   depends_on   = [module.key_pair, module.security_groups, module.vpn]
   vpn_ip       = module.vpn.vpn_ip
-  vpcs = var.vpcs
+  vpcs         = var.vpcs
+  key_pair     = module.key_pair.key_pair
 }
 
 # ###############---- MODULE VPN ----###############
@@ -60,12 +59,12 @@ module "myinstances" {
 # # to first generate its bootstrap so that clients can download it without problem.
 module "vpn" {
   source       = "./modules/EC2/ec2/vpn"
-  ec2_specs    = var.ec2_specs
   subnet_ids   = module.network.subnet_ids
   keys         = var.keys
   sg_ids       = module.security_groups.sg_ids
   key_pair_pem = module.key_pair.key_pair_pem
-  vpcs = var.vpcs
+  vpcs         = var.vpcs
+  key_pair     = module.key_pair.key_pair
 }
 
 # ###############---- MODULE Key Pair ----###############
@@ -73,6 +72,7 @@ module "vpn" {
 module "key_pair" {
   source = "./modules/EC2/key_pair"
   keys   = var.keys
+  vpcs   = var.vpcs
 }
 
 # ###############---- MODULE S3 ----###############

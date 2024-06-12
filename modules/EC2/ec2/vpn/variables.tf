@@ -1,12 +1,3 @@
-variable "ec2_specs" {
-  description = "Parameters of the instance"
-  type        = object({
-    ami = string
-    type = string
-    instances = map(string)
-  })  
-}
-
 variable "subnet_ids" {
   description = "Public subnet ID where instances will be launched"
   type        = map(string)
@@ -22,7 +13,6 @@ variable "keys" {
   type = object({
     algorithm = string
     rsa_bits  = number
-    key_name  = map(string)
   })
 }
 
@@ -50,4 +40,9 @@ variable "vpcs" {
       }))
     }))
   }))
+}
+
+variable "key_pair" {
+  description = "Name of the key pairs"
+  type = map(string)
 }

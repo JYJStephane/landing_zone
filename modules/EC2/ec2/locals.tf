@@ -44,8 +44,8 @@ locals {
   mkdir /.ssh
 
   # Insertion of the keys in the directory, while applying the correct permissions and changing the owner
-  echo "${var.key_pair_pem["vpn"].private_key_pem}" > /.ssh/${var.keys.key_name["vpn"]}.pem
-  chmod 400 /.ssh/${var.keys.key_name["vpn"]}.pem
+  echo "${var.key_pair_pem["vpn"].private_key_pem}" > /.ssh/${var.key_pair["vpn"]}.pem
+  chmod 400 /.ssh/${var.key_pair["vpn"]}.pem
   chown -R ubuntu /.ssh
 
   # We add the VPN server IP to known hosts, we need this to auto confirm the scp command
@@ -65,22 +65,13 @@ locals {
   firewall-cmd --reload
 
   # Import of the client configuration file from the VPN server
-  scp -i /.ssh/${var.keys.key_name["vpn"]}.pem ubuntu@${var.vpn_ip}:/home/ubuntu/client.ovpn /home/ubuntu/
+  scp -i /.ssh/${var.key_pair["vpn"]}.pem ubuntu@${var.vpn_ip}:/home/ubuntu/client.ovpn /home/ubuntu/
   
   # Application of the client configuration file
   openvpn --config /home/ubuntu/client.ovpn
   EOF
    vpn = <<-EOF
   EOF
-  }
-}
-
-# All instances are filtered so that the VPN instance is not created
-locals {
-  filtered_ec2_specs = {
-    for key, value in var.ec2_specs["instances"] :
-    key => value
-    if key != "vpn"
   }
 }
 

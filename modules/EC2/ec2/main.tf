@@ -7,7 +7,7 @@ resource "aws_instance" "instances" {
   ami                    = each.value.instance_ami
   instance_type          = each.value.instance_type
   subnet_id              = var.subnet_ids[each.value.subnet_name]
-  key_name               = var.keys.key_name[each.value.subnet_name]
+  key_name               = var.key_pair[each.value.subnet_name]
   vpc_security_group_ids = [var.sg_ids[each.key]]
   user_data              = local.scripts[each.value.instance_name]
   associate_public_ip_address = true

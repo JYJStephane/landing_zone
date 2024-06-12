@@ -82,11 +82,6 @@ iam_groups = [
 keys = {
   algorithm = "RSA"
   rsa_bits  = 4096
-  key_name = {
-    primary   = "SSH-Virginia-Primary"
-    secondary = "SSH-Virginia-Secondary"
-    vpn       = "SSH-Virginia-VPN"
-  }
 }
 
 # Cube lifecycle configuration
