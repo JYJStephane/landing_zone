@@ -8,6 +8,12 @@ variable "monitoring_arn" {
   type = string
 }
 
+variable "vpn_arn" {
+  description = "VPN ARN"
+  type = string
+}
+
+
 variable "iam_group" {
   description = "IAM Group Name"
   type = list(string)

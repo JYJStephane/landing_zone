@@ -51,7 +51,9 @@ data "aws_iam_policy_document" "aws_security" {
       "ec2-instance-connect:SendSSHPublicKey"
     ]
     resources = [
-      "${var.monitoring_arn}"]
+      "${var.monitoring_arn}",
+      "${var.vpn_arn}"
+      ]
   }
 
   statement {

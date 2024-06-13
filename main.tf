@@ -20,6 +20,7 @@ module "policy" {
   s3_bucket_arn  = module.mybucket.s3_bucket_arn
   iam_group      = var.iam_groups
   monitoring_arn = module.myinstances.instance_arns["monitoring"]
+  vpn_arn        = module.vpn.vpn_arn
   depends_on     = [module.iam_groups]
 }
 
