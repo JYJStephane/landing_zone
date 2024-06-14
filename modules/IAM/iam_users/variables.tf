@@ -1,9 +1,9 @@
 variable "iam_users" {
-  description = "Usuarios IAM"
+  description = "IAM users"
   type = map(set(string))
 }
 
 variable "iam_groups" {
-  description = "Mapa de los grupos"
+  description = "Groups map"
   type = list(string)
 }
