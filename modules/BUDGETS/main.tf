@@ -1,4 +1,4 @@
-#Creates a number of budgets dinamically with attributes written on tfvars
+# Creates a number of budgets dinamically with attributes written on tfvars
 resource "aws_budgets_budget" "zero_spend_budget" {
   for_each          = { for budget in var.budgets : budget.budget_name => budget }
   name              = each.value.budget_name

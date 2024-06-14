@@ -1,5 +1,5 @@
 variable "keys" {
-  description = "Valores para configurar nuestra generación de keys"
+  description = "Generation key values"
   type = object({
     algorithm = string 
     rsa_bits = number

@@ -56,8 +56,8 @@ module "myinstances" {
 }
 
 # ###############---- MODULE VPN ----###############
-# # Creation of the instance configured with openvpn separately from the others 
-# # to first generate its bootstrap so that clients can download it without problem.
+# Creation of the instance configured with openvpn separately from the others 
+# to first generate its bootstrap so that clients can download it without problem.
 module "vpn" {
   source       = "./modules/EC2/ec2/vpn"
   subnet_ids   = module.network.subnet_ids

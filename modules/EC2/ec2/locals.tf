@@ -76,7 +76,7 @@ locals {
 }
 
 locals {
-  # Crear una lista de objetos con nombre de VPC, CIDR, subredes y sus instancias
+  # Create a list of objets VPC, Subnets CIDR
   vpc_instances = flatten([
     for vpc_name, vpc_data in var.vpcs : [
       for subnet_name, subnet_data in vpc_data.subnets : [
