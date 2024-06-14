@@ -44,7 +44,7 @@ variable "budgets" {
 }
 
 variable "keys" {
-  description = "Valores para configurar nuestra generación de keys"
+  description = "Configuration values to generate keys"
   type = object({
     algorithm = string
     rsa_bits  = number
