@@ -72,7 +72,7 @@ locals {
   EOF
    vpn = <<-EOF
   EOF
-  test = <<-EOF
+  test_ec2 = <<-EOF
   EOF
   }
 }
