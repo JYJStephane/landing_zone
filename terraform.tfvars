@@ -48,6 +48,22 @@ vpcs = {
       }
     }
   }
+  test = {
+    cidr_block = "10.30.0.0/16"
+    subnets = {
+      test_subnet = {
+        cidr_block = "10.30.1.0/24"
+        public = true
+        instances = {
+          test_ec2 = {
+            ami  = "ami-0e001c9271cf7f3b9"
+            type = "t2.micro"
+            ports = {80 = "tcp", 443 = "tcp", 22 = "tcp", -1 = "icmp"}
+          }
+        }
+      }
+    }
+  }
 }
 
 # General tags that are added to most resources in the project
@@ -68,6 +84,7 @@ iam_users = {
   "security_user"    = ["aws_security"]
   "operations_user"  = ["aws_operations"]
   "operations_user2" = ["aws_operations"]
+  "operations_user3" = ["aws_operations"]
 }
 
 # List of Groups added to our configuration
